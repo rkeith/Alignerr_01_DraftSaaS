@@ -1,0 +1,10 @@
+﻿@page "/adminrelays/{siteid:int}"
+
+<h3>Admin page for relays for site ID @siteId</h3>
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+}

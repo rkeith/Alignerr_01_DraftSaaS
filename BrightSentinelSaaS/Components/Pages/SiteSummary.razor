@@ -1,0 +1,16 @@
+﻿@page "/sitesummary/{siteid:int}"
+
+<h3>Site Status Summary</h3>
+
+This is the landing page. It opens by defailt and gives an overview of the site status. Site ID is @siteId
+
+If the user is a Customer Administrator then the last site visited is saved and the menu, and this page, will open the next time the user logs in.
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+
+
+}

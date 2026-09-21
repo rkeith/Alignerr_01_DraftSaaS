@@ -1,0 +1,121 @@
+﻿@inject NavigationManager navManager
+
+<MudDivider></MudDivider>
+<MudPaper Width="250px" Height="calc(100dvh - 180px)" Outlined="false" Style="overflow-y:scroll; background-color:#f1f0ea">
+
+    <MudNavMenu Color=Color.Primary >
+        <br/>
+        <MudText Typo="Typo.h6" Class="px-4">@localMenuTree.AccountName</MudText>
+        <MudDivider Class="my-4" />
+        <MudText Typo="Typo.body1" Class="px-5">Sites</MudText>
+        @foreach(var site in localMenuTree.Sites) 
+        {
+            <MudNavGroup Dense="true" Title=@site.SiteName Expanded=@(site.SiteID == localMenuTree.HomeSiteID)>
+                @* selectively expand the site for the user's home site*@
+                @* <MudNavGroup Title="Monitor" Expanded=@(site.SiteID == localMenuTree.HomeSiteID) onclick=@(ShowSummary(site.SiteID))> *@
+                <MudNavGroup Title="Status" Expanded="false">
+                    
+                    @* onclick=@(ShowSummary(site.SiteID))> *@
+
+
+                    @* <MudNavGroup Title="Groups" Expanded="false"> *@
+                    @*     @* List of reporting groups to view summaries*@
+                    @*     @foreach (var reportinggroup in site.SiteReportingGroups) *@
+                    @*     { *@
+                    @*         <MudNavLink Href=@("/statusgroup/" + reportinggroup.ReportingGroupID)>@reportinggroup.ReportingGroupName</MudNavLink> *@
+                    @*     } *@
+                    @* </MudNavGroup> *@
+
+                    <MudNavLink Href=@("/statusgroups/" + site.SiteID)>Groups</MudNavLink>     @* view a list of status groups showing summaries of each group*@
+
+                    <MudNavLink Href=@("/statusequipment/" + site.SiteID)>Equipment</MudNavLink>     @* view a list of equipment and current status*@
+
+                    <MudNavLink Href=@("/statusdevices/" + site.SiteID)>Devices</MudNavLink>         @* view a list of devices and current status*@
+
+                </MudNavGroup>
+
+                <MudNavLink Href=@("/reportmenu/" + site.SiteID)>Reports</MudNavLink>        @* displays the reporting menu*@
+
+                @if (localMenuTree.IsAdmin)
+                {
+                    <MudNavGroup Title="Setup" Expanded="false">
+
+                        <MudNavLink Href=@("/adminsite/" + site.SiteID)>Site</MudNavLink>
+
+                        <MudNavLink Href=@("/adminequipmenttypes/" + site.SiteID)>Equipment Types</MudNavLink>
+
+                        <MudNavLink Href=@("/adminequipmentitems/" + site.SiteID)>Equipment</MudNavLink>
+
+                        <MudNavLink Href=@("/admindevices/" + site.SiteID)>Devices</MudNavLink>
+
+                        @* @if (site.SiteRelays.Count > 0) *@
+                        @* { *@
+                            <MudNavLink Href=@("/adminrelays/" + site.SiteID)>Relays</MudNavLink>         @* view a list of relays. Not visible if no relays are present*@
+                        @* } *@
+
+                    </MudNavGroup>
+
+                }
+
+
+
+
+
+            </MudNavGroup> 
+        }
+
+
+    </MudNavMenu>
+</MudPaper>
+<MudDivider></MudDivider>
+<MudPaper Width="250px" Height="70px" Outlined="false" style="background:#f1f0ea; object-position:bottom">
+
+    <div class="column" style="width:15%;float:left; margin-top:10px">
+        &nbsp;
+    </div>
+    <div class="column" style="width:30%;float:left; margin-top:10px">
+            <MudIcon Icon="@Icons.Material.Outlined.SettingsSuggest" Title="Account Administration" Size="Size.Large" />
+    </div>
+    <div class="column" style="width:30%;float:left; margin-top:10px">
+            <MudIcon Icon="@Icons.Material.Outlined.Info" Title="Information" Size="Size.Large" />
+    </div>
+
+    <div class="column" style="width:25%;float:left; margin-top:10px">
+            <MudIcon Icon="@Icons.Material.Outlined.QuestionMark" Title="Help" Size="Size.Large" />
+    </div>
+  
+    </MudPaper>
+
+
+
+@code{
+
+    private static DevMenu devMenu = new();
+
+    private static MenuTree localMenuTree = devMenu.getMenuTree();
+
+    private static int? homeSiteID;
+    private static bool isLoaded = false;
+
+    protected override void OnAfterRender(bool firstRender)  //open the user's landing page when the menu is loaded
+    {
+        if(localMenuTree is not null  && homeSiteID is null)
+        {
+            isLoaded = true;
+            homeSiteID = localMenuTree.HomeSiteID;
+            ShowSummary(homeSiteID);
+        }
+    }
+
+    private bool ShowSummary(int? sid)
+    {
+        if (sid is not null && isLoaded)   //should be show groups if groups are configured, else show equipment
+        {
+            navManager.NavigateTo("/sitesummary/" + sid);
+        }
+        return true;
+    }
+
+
+
+}

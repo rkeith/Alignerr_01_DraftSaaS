@@ -1,0 +1,10 @@
+﻿@page "/adminsite/{siteid:int}"
+
+<h3>Site admin page for the site ID @siteId</h3>
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+}

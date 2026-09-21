@@ -1,0 +1,14 @@
+﻿@page "/statusgroups/{siteid:int}"
+
+@* <h3>A list of reporting groups for the site showing statusfor site ID @siteId</h3>
+ *@
+<div style="display: flex; justify-content: center; align-items: center; min-height: 100%; padding: 20px;">
+    <img src="images/Graph2.png" alt="Graph" width="1400" height="1000">
+</div>
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+}

@@ -1,0 +1,10 @@
+﻿@page "/admindevices/{siteid:int}"
+
+<h3>Admin page for devices for site ID @siteId</h3>
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+}

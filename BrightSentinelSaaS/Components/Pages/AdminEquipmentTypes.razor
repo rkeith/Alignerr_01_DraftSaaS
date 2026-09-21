@@ -1,0 +1,10 @@
+﻿@page "/adminequipmenttypes/{siteid:int}"
+
+<h3>Admin page for equipment types for site ID @siteId</h3>
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+}

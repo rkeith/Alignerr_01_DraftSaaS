@@ -1,0 +1,17 @@
+﻿@page "/statusgroup/{groupid:int}"
+
+<PageTitle>Group Status</PageTitle>
+
+<h3>A summary of the selected reporting group</h3>
+
+<div> 
+    Reporting group @this.groupId
+</div>
+
+@code {
+
+    [Parameter]
+    public int groupId { get; set; }
+
+}
+

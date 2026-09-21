@@ -1,0 +1,14 @@
+﻿@page "/reportmenu/{siteid:int}"
+
+@* <h3>Report Menu for Site ID @siteId</h3> *@
+
+<div style="display: flex; justify-content: center; align-items: center; min-height: 100%; padding: 20px;">
+    <img src="images/Graph1.png" alt="Graph" width="1250" height="1240">
+</div>
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+}

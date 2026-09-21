@@ -1,0 +1,10 @@
+﻿@page "/statusdevices/{siteid:int}"
+
+<h3>A list of devices for the site showing status for site @siteId</h3>
+
+@code {
+
+    [Parameter]
+    public int siteId { get; set; }
+
+}

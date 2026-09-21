@@ -1,0 +1,181 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@_theme" IsDarkMode="false" />
+<MudLayout>
+       
+    <MudPaper style="width:100%; height:110px; border:none; background-color:#f1f0ea">
+        
+        <MudImage Src="images/Logo_orange.png" Width="242" Height="70" Alt="Sentinel Logo" Style="margin-left:35px; margin-top:30px;" />
+       
+        <div class="column" style="width:150px; float:right; padding-right:50px; padding-top:55px;">
+            <MudLink Href="#" style="Font-weight:bold;">Sign Out</MudLink>
+        </div> 
+        <div class="column" style="width:100px; float:right; padding-right:50px; padding-top:45px">
+            <MudIcon Icon="@Icons.Material.Outlined.Person2" Title="Profile" Size="Size.Large" />
+        </div>
+        <div class="column" style="width:100px; float:right; padding-right:50px; padding-top:45px">
+            <MudIcon Icon="@Icons.Material.Outlined.Notifications" Title="Alerts" Size="Size.Large" Iconcolor="Color.Primary"/>
+        </div>
+    </MudPaper>
+   @*  <MudPaper Align="left" style="width:100%; height:35px; border:none; background-color:#F1F0EA">
+
+        <MudText Typo="Typo.h5" Class="px-7" >Genera IVF</MudText>
+
+    </MudPaper> *@
+       
+
+    <MudDivider></MudDivider>
+
+    <MudDrawer id="nav-drawer" @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2" Style="position:absolute; top:110px; height:calc(100dvh - 111px); width:250px; border:hidden; background-color:#f1f0ea">
+        <NavMenu/>
+    </MudDrawer>
+
+    <MudMainContent Class="pa-4" Style="height:calc(100dvh - 111px); overflow-y:scroll; background-color:#f8f8f4">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@* <div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div> *@
+
+@code {
+
+    private bool _drawerOpen = true;
+
+    //private bool _isDarkMode = false;
+
+
+    private MudTheme? _theme = null;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _theme = new()
+        {
+            PaletteLight = _lightPalette,
+            //PaletteDark = _darkPalette,
+            Typography = _typography,
+        };
+
+
+    }
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+      
+
+    private readonly PaletteLight _lightPalette = new()    
+    {                                                      
+        Black = "#4E4B48",                          //Grey for text etc. Not pure black
+        White = "#F8F8F4",                          //Light background
+        Primary = "#E35205",                        //Orange for heading 
+        PrimaryContrastText = "#F1F0EA",            //Pale cream or lettering on the orange headings
+        Secondary = "#ECF1EB",                      //background for menus and cards, light beige
+        SecondaryContrastText = "#4E4B48",          //Lighter grey
+        Tertiary = "#EFCB68",                       //Amber
+        TertiaryContrastText = "#686868",
+        //Info = #000000,
+        //InfoContrastText = #000000,
+        //Success = #000000,
+        //SuccessContrastText = #000000,
+        Warning = "#DD968E",
+        //WarningContrastText = #000000,
+        //Error = #000000,
+        //ErrorContrastText = #000000,
+            Dark = "#62C370",
+            DarkContrastText = "#C03221",
+        TextPrimary = "#4E4B48",
+        //TextSecondary = #000000,
+        //TextDisabled = #000000,
+        //ActionDefault = #000000,
+        //ActionDisabled = #000000,
+        //ActionDisabledBackground = #000000,
+        Background = "#ffffff",              //background of the main body area.
+        BackgroundGray = "#f4f5f6",
+        //Surface = #000000,
+        DrawerBackground = "#f4f5f6",
+            DrawerText = "#62C370",
+            DrawerIcon = "#4E4B48",      //down pointing triangle showing the non-expanded groups
+        AppbarBackground = "rgba(255,255,255,0.8)",
+        AppbarText = "#424242",
+        //LinesDefault = #000000,
+        //LinesInputs = #000000,
+        //TableLines = #000000,
+        //TableStriped = #000000,
+        //TableHover = #000000,
+            Divider = "#aaaaaa",        //MudDivider
+            DividerLight = "#62C370",   //not known
+        //Skeleton = #000000,
+        GrayLight = "#e8e8e8",
+        GrayLighter = "#f9f9f9",
+    };
+
+    private readonly Typography _typography = new()
+    {
+        Default = new DefaultTypography()
+        {
+            FontFamily = ["Rethink Sans", "Poppins",  "sans-serif"],
+            FontSize = ".875rem",
+            FontWeight = "500",
+            LineHeight = "1.43",
+            LetterSpacing = ".01071em"
+        },
+         H5 = new H5Typography()
+         {
+            FontFamily = new[] { "Rethink Sans", "Poppins", "sans-serif" },
+             FontSize = "1.25rem",
+             FontWeight = "500",
+             LineHeight = "1.8",
+             LetterSpacing = ".018em"
+         }
+      };
+         
+
+
+    // private readonly PaletteDark _darkPalette = new()
+    // {
+    //     Primary = "#7e6fff",
+    //     Surface = "#1e1e2d",
+    //     Background = "#1a1a27",
+    //     BackgroundGray = "#151521",
+    //     AppbarText = "#92929f",
+    //     AppbarBackground = "rgba(26,26,39,0.8)",
+    //     DrawerBackground = "#1a1a27",
+    //     ActionDefault = "#74718e",
+    //     ActionDisabled = "#9999994d",
+    //     ActionDisabledBackground = "#605f6d4d",
+    //     TextPrimary = "#b2b0bf",
+    //     TextSecondary = "#92929f",
+    //     TextDisabled = "#ffffff33",
+    //     DrawerIcon = "#92929f",
+    //     DrawerText = "#92929f",
+    //     GrayLight = "#2a2833",
+    //     GrayLighter = "#1e1e2d",
+    //     Info = "#4a86ff",
+    //     Success = "#3dcb6c",
+    //     Warning = "#ffb545",
+    //     Error = "#ff3f5f",
+    //     LinesDefault = "#33323e",
+    //     TableLines = "#33323e",
+    //     Divider = "#292838",
+    //     OverlayLight = "#1e1e2d80",
+    // };
+
+    // public string DarkLightModeButtonIcon => _isDarkMode switch
+    // {
+    //     true => Icons.Material.Rounded.AutoMode,
+    //     false => Icons.Material.Outlined.DarkMode,
+    // };
+    // private void DarkModeToggle()
+    // {
+    //     _isDarkMode = !_isDarkMode;
+    // }
+}
+
+
